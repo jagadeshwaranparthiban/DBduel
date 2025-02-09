@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Contest</title>
+    <script>
+        async function submitQuery() {
+            const userId = document.getElementById("user_id").value;
+            const questionId = document.getElementById("question_id").value;
+            const query = document.getElementById("query").value;
+
+            const response = await fetch("http://127.0.0.1:5000/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId, question_id: questionId, query: query })
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                document.getElementById("output").innerHTML = `<p style="color:red;">Error: ${result.error}</p>`;
+            } else {
+                displayTable(result.output);
+            }
+        }
+
+        function displayTable(data) {
+            if (data.length === 0) {
+                document.getElementById("output").innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            let table = "<table border='1'><tr>";
+            for (let key in data[0]) {
+                table += `<th>${key}</th>`;  // Add column headers
+            }
+            table += "</tr>";
+
+            data.forEach(row => {
+                table += "<tr>";
+                for (let key in row) {
+                    table += `<td>${row[key]}</td>`;  // Add row data
+                }
+                table += "</tr>";
+            });
+
+            table += "</table>";
+            document.getElementById("output").innerHTML = table;
+        }
+    </script>
+</head>
+<body>
+    <h2>SQL Query Contest</h2>
+    <label>User ID:</label>
+    <input type="text" id="user_id" placeholder="Enter User ID"><br><br>
+    
+    <label>Question ID:</label>
+    <input type="text" id="question_id" placeholder="Enter Question ID"><br><br>
+
+    <label>Write your SQL query:</label><br>
+    <textarea id="query" rows="4" cols="50"></textarea><br><br>
+
+    <button class="btn" onclick="submitQuery()">Submit Query</button>
+    <button class="btn" onclick="show()">show</button>
+
+    <h3>Query Output:</h3>
+    <div id="output"></div>
+</body>
+</html>

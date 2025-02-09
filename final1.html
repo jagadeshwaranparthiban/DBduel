@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Contest</title>
+    <script>
+        const questions = [
+            { id: 1, text: "Get all participants with score above 80." },
+            { id: 2, text: "Find the highest score in the participants table." },
+            { id: 3, text: "Retrieve all users sorted by score in descending order." },
+            { id: 4, text: "Find the total number of participants." },
+            { id: 5, text: "Select all participants whose name starts with 'A'." },
+            { id: 6, text: "Get the second highest score from the table." },
+            { id: 7, text: "Find participants with the lowest score." },
+            { id: 8, text: "Count the number of unique scores." },
+            { id: 9, text: "Retrieve all participants who scored 90 or above." },
+            { id: 10, text: "Get the average score of all participants." }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let userId = "";
+        let submittedQuestions = new Map();
+
+        function startContest() {
+            userId = document.getElementById("user_id").value.trim();
+            if (userId === "") {
+                alert("Please enter your User ID.");
+                return;
+            }
+            document.getElementById("loginScreen").style.display = "none";
+            document.getElementById("contestScreen").style.display = "block";
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById("question");
+            questionContainer.innerHTML = `<strong>Q${questions[currentQuestionIndex].id}:</strong> ${questions[currentQuestionIndex].text}`;
+            
+            const queryInput = document.getElementById("query");
+            queryInput.value = submittedQuestions.get(currentQuestionIndex) || "";
+
+            document.getElementById("submitBtn").disabled = submittedQuestions.has(currentQuestionIndex);
+            document.getElementById("finishBtn").style.display = (currentQuestionIndex === questions.length - 1) ? "inline" : "none";
+            document.getElementById("prevBtn").disabled = (currentQuestionIndex === 0);
+            document.getElementById("nextBtn").disabled = (currentQuestionIndex === questions.length - 1);
+        }
+
+        async function submitQuery() {
+            const questionId = questions[currentQuestionIndex].id;
+            const query = document.getElementById("query").value;
+
+            const response = await fetch("http://127.0.0.1:5000/submit_query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId, question_id: questionId, query: query })
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                alert(result.error);
+            } else {
+                alert(result.correct ? "✅ Correct!" : "❌ Incorrect.");
+                submittedQuestions.set(currentQuestionIndex, query);
+                document.getElementById("submitBtn").disabled = true;
+            }
+        }
+
+        async function viewOutput() {
+            const query = document.getElementById("query").value;
+
+            const response = await fetch("http://127.0.0.1:5000/view_output", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: query })
+            });
+
+            const result = await response.json();
+            document.getElementById("output").innerText = result.error ? "Error: " + result.error : JSON.stringify(result.results, null, 2);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="loginScreen">
+        <input type="text" id="user_id" placeholder="User ID">
+        <button onclick="startContest()">Start Contest</button>
+    </div>
+
+    <div id="contestScreen" style="display:none; text-align:center; max-width:600px; margin:auto;">
+        <h3 id="question"></h3>
+        <textarea id="query" style="width:100%; height:100px;"></textarea>
+        <div style="margin:10px 0;">
+            <button id="prevBtn" onclick="prevQuestion()">Previous</button>
+            <button id="submitBtn" onclick="submitQuery()">Submit Answer</button>
+            <button onclick="viewOutput()">View Output</button>
+            <button id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button id="finishBtn" onclick="finishContest()" style="display:none;">Finish</button>
+        </div>
+        <div id="output" style="margin-top:10px; border:1px solid #ccc; padding:10px;"></div>
+    </div>
+</body>
+</html>

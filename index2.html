@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Contest</title>
+    <script>
+        const questions = [
+            { id: 1, text: "Get all participants with score above 80." },
+            { id: 2, text: "Find the highest score in the participants table." },
+            { id: 3, text: "Retrieve all users sorted by score in descending order." },
+            { id: 4, text: "Find the total number of participants." },
+            { id: 5, text: "Select all participants whose name starts with 'A'." },
+            { id: 6, text: "Get the second highest score from the table." },
+            { id: 7, text: "Find participants with the lowest score." },
+            { id: 8, text: "Count the number of unique scores." },
+            { id: 9, text: "Retrieve all participants who scored 90 or above." },
+            { id: 10, text: "Get the average score of all participants." }
+        ];
+        
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById("question");
+            questionContainer.innerHTML = `<strong>Q${questions[currentQuestionIndex].id}:</strong> ${questions[currentQuestionIndex].text}`;
+
+            // Hide "Previous" button on the first question
+            document.getElementById("prevBtn").style.display = (currentQuestionIndex === 0) ? "none" : "inline";
+
+            // Change "Next" button to "Finish" on the last question
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("finishBtn").style.display = "inline";
+            } else {
+                document.getElementById("nextBtn").style.display = "inline";
+                document.getElementById("finishBtn").style.display = "none";
+            }
+
+            document.getElementById("query").value = ""; // Clear previous query
+            document.getElementById("output").innerHTML = ""; // Clear output table
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+            }
+        }
+
+        async function submitQuery() {
+            const userId = document.getElementById("user_id").value;
+            const questionId = questions[currentQuestionIndex].id;
+            const query = document.getElementById("query").value;
+
+            const response = await fetch("http://127.0.0.1:5000/query", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId, question_id: questionId, query: query })
+            });
+
+            const result = await response.json();
+            if (result.error) {
+                document.getElementById("output").innerHTML = `<p style="color:red;">Error: ${result.error}</p>`;
+            } else {
+                displayTable(result.output);
+            }
+        }
+
+        function displayTable(data) {
+            if (data.length === 0) {
+                document.getElementById("output").innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            let table = "<table border='1'><tr>";
+            for (let key in data[0]) {
+                table += `<th>${key}</th>`;  // Column headers
+            }
+            table += "</tr>";
+
+            data.forEach(row => {
+                table += "<tr>";
+                for (let key in row) {
+                    table += `<td>${row[key]}</td>`;  // Row data
+                }
+                table += "</tr>";
+            });
+
+            table += "</table>";
+            document.getElementById("output").innerHTML = table;
+        }
+
+        async function finishContest() {
+            const userId = document.getElementById("user_id").value;
+
+            const response = await fetch("http://127.0.0.1:5000/finish", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_id: userId })
+            });
+
+            const result = await response.json();
+            alert(`Contest submitted successfully!`);
+        }
+
+        window.onload = displayQuestion;
+    </script>
+</head>
+<body>
+    <h2>SQL Query Contest</h2>
+    <label>User ID:</label>
+    <input type="text" id="user_id" placeholder="Enter User ID"><br><br>
+
+    <h3 id="question"></h3>
+
+    <label>Write your SQL query:</label><br>
+    <textarea id="query" rows="4" cols="50"></textarea><br><br>
+
+    <button onclick="prevQuestion()" id="prevBtn">Previous</button>
+    <button onclick="submitQuery()">Submit Query</button>
+    <button onclick="nextQuestion()" id="nextBtn">Next</button>
+    <button onclick="finishContest()" id="finishBtn" style="display:none;">Finish</button>
+
+    <h3>Query Output:</h3>
+    <div id="output"></div>
+</body>
+</html>
