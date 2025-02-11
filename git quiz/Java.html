@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Java Quiz</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="container_2">
+            <h1 class="text-center quiz-title">Core Java Quiz</h1>
+            <div id="timer" class="quiz-timer">20:00</div>
+        </div>      
+        <br>
+        <form id="quizForm">
+            <p><b>Question 1:</b> What is the difference between == and .equals() in Java?</p>
+            <input type="radio" id="q1a" name="question1" value="A">
+            <label for="q1a"><b>A.</b> Both compare objects by reference.</label><br>
+            <input type="radio" id="q1b" name="question1" value="B">
+            <label for="q1b"><b>B.</b> == compares references, .equals() compares logical equality.</label><br>
+            <input type="radio" id="q1c" name="question1" value="C">
+            <label for="q1c"><b>C.</b> == compares logical equality, .equals() compares references.</label><br>
+            <input type="radio" id="q1d" name="question1" value="D">
+            <label for="q1d"><b>D.</b> Both compare the content of objects.</label><br><br>
+
+            <p><b>Question 2:</b> What is the purpose of the final keyword in Java?</p>
+            <input type="radio" id="q2a" name="question2" value="A">
+            <label for="q2a"><b>A.</b> To mark a method as private.</label><br>
+            <input type="radio" id="q2b" name="question2" value="B">
+            <label for="q2b"><b>B.</b> To prevent inheritance or modification.</label><br>
+            <input type="radio" id="q2c" name="question2" value="C">
+            <label for="q2c"><b>C.</b> To declare an abstract method.</label><br>
+            <input type="radio" id="q2d" name="question2" value="D">
+            <label for="q2d"><b>D.</b> To make a method static.</label><br><br>
+
+            <p><b>Question 3:</b> Which of the following is true about ArrayList and LinkedList?</p>
+            <input type="radio" id="q3a" name="question3" value="A">
+            <label for="q3a"><b>A.</b> ArrayList is faster for insertions and deletions.</label><br>
+            <input type="radio" id="q3b" name="question3" value="B">
+            <label for="q3b"><b>B.</b> LinkedList uses dynamic arrays.</label><br>
+            <input type="radio" id="q3c" name="question3" value="C">
+            <label for="q3c"><b>C.</b> ArrayList is faster for random access.</label><br>
+            <input type="radio" id="q3d" name="question3" value="D">
+            <label for="q3d"><b>D.</b> Both have the same performance for all operations.</label><br><br>
+           
+
+            <p><b>Question 4:</b> Which of the following is NOT a feature of the Java programming language?</p>
+            <input type="radio" id="q4a" name="question4" value="A">
+            <label for="q4a"><b>A.</b> Platform independence</label><br>
+            <input type="radio" id="q4b" name="question4" value="B">
+            <label for="q4b"><b>B.</b> Automatic garbage collection</label><br>
+            <input type="radio" id="q4c" name="question4" value="C">
+            <label for="q4c"><b>C.</b> Pointer arithmetic</label><br>
+            <input type="radio" id="q4d" name="question4" value="D">
+            <label for="q4d"><b>D.</b> Object-oriented programming</label><br><br>
+
+            <p><b>Question 5:</b> What is the main purpose of the "this" keyword in Java?</p>
+            <input type="radio" id="q5a" name="question5" value="A">
+            <label for="q5a"><b>A.</b> To refer to the current object instance</label><br>
+            <input type="radio" id="q5b" name="question5" value="B">
+            <label for="q5b"><b>B.</b> To refer to the parent class object</label><br>
+            <input type="radio" id="q5c" name="question5" value="C">
+            <label for="q5c"><b>C.</b> To call a method statically</label><br>
+            <input type="radio" id="q5d" name="question5" value="D">
+            <label for="q5d"><b>D.</b> To define a final variable</label><br><br>
+
+            <p><b>Question 6:</b> Which of the following is a correct way to create a thread in Java?</p>
+            <input type="radio" id="q6a" name="question6" value="A">
+            <label for="q6a"><b>A.</b> By implementing the Runnable interface</label><br>
+            <input type="radio" id="q6b" name="question6" value="B">
+            <label for="q6b"><b>B.</b> By extending the Thread class</label><br>
+            <input type="radio" id="q6c" name="question6" value="C">
+            <label for="q6c"><b>C.</b> Both A and B</label><br>
+            <input type="radio" id="q6d" name="question6" value="D">
+            <label for="q6d"><b>D.</b> By calling the start() method directly</label><br><br>
+
+           
+
+            <p><b>Question 7:</b> Which of the following methods is used to make a thread sleep in Java?</p>
+            <input type="radio" id="q7a" name="question7" value="A">
+            <label for="q7a"><b>A.</b> wait()</label><br>
+            <input type="radio" id="q7b" name="question7" value="B">
+            <label for="q7b"><b>B.</b> pause()</label><br>
+            <input type="radio" id="q7c" name="question7" value="C">
+            <label for="q7c"><b>C.</b> sleep()</label><br>
+            <input type="radio" id="q7d" name="question7" value="D">
+            <label for="q7d"><b>D.</b> stop()</label><br><br>
+
+            <p><b>Question 8:</b> Which keyword is used in Java to handle exceptions?</p>
+            <input type="radio" id="q8a" name="question8" value="A">
+            <label for="q8a"><b>A.</b> throw</label><br>
+            <input type="radio" id="q8b" name="question8" value="B">
+            <label for="q8b"><b>B.</b> try</label><br>
+            <input type="radio" id="q8c" name="question8" value="C">
+            <label for="q8c"><b>C.</b> catch</label><br>
+            <input type="radio" id="q8d" name="question8" value="D">
+            <label for="q8d"><b>D.</b> All of the above</label><br><br>
+
+            <p><b>Question 9:</b> What is the output of the following code snippet?  
+            <pre style="display: inline-block; background: #f4f4f4; padding: 8px; border-radius: 5px;">
+            int x = 5;  
+            System.out.println(x++);  
+            System.out.println(++x);
+            </pre>
+            </p>
+            <input type="radio" id="q9a" name="question9" value="A">
+            <label for="q9a"><b>A.</b> 5 and 7</label><br>
+            <input type="radio" id="q9b" name="question9" value="B">
+            <label for="q9b"><b>B.</b> 6 and 7</label><br>
+            <input type="radio" id="q9c" name="question9" value="C">
+            <label for="q9c"><b>C.</b> 5 and 6</label><br>
+            <input type="radio" id="q9d" name="question9" value="D">
+            <label for="q9d"><b>D.</b> 6 and 6</label><br><br>
+
+
+            <p><b>Question 10:</b> What is the default value of a boolean variable in Java?</p>
+            <input type="radio" id="q10a" name="question10" value="A">
+            <label for="q10a"><b>A.</b> true</label><br>
+            <input type="radio" id="q10b" name="question10" value="B">
+            <label for="q10b"><b>B.</b> false</label><br>
+            <input type="radio" id="q10c" name="question10" value="C">
+            <label for="q10c"><b>C.</b> 0</label><br>
+            <input type="radio" id="q10d" name="question10" value="D">
+            <label for="q10d"><b>D.</b> null</label><br><br>
+
+            <p><b>Question 11:</b> What is polymorphism in Java?</p>
+            <input type="radio" id="q11a" name="question11" value="A">
+            <label for="q11a"><b>A.</b> The ability of a method to be overridden or overloaded.</label><br>
+            <input type="radio" id="q11b" name="question11" value="B">
+            <label for="q11b"><b>B.</b> The ability to hide a method in a subclass.</label><br>
+            <input type="radio" id="q11c" name="question11" value="C">
+            <label for="q11c"><b>C.</b> The ability to inherit from multiple classes.</label><br>
+            <input type="radio" id="q11d" name="question11" value="D">
+            <label for="q11d"><b>D.</b> None of the above.</label><br><br>
+
+            <p><b>Question 12:</b> What is the difference between ArrayList and Vector in Java?</p>
+            <input type="radio" id="q12a" name="question12" value="A">
+            <label for="q12a"><b>A.</b> ArrayList is synchronized; Vector is not.</label><br>
+            <input type="radio" id="q12b" name="question12" value="B">
+            <label for="q12b"><b>B.</b> Vector is synchronized; ArrayList is not.</label><br>
+            <input type="radio" id="q12c" name="question12" value="C">
+            <label for="q12c"><b>C.</b> Both ArrayList and Vector are synchronized.</label><br>
+            <input type="radio" id="q12d" name="question12" value="D">
+            <label for="q12d"><b>D.</b> Both ArrayList and Vector are not synchronized.</label><br><br>
+
+            
+
+            <p><b>Question 13:</b> What is the significance of the `super` keyword in Java?</p>
+            <input type="radio" id="q13a" name="question13" value="A">
+            <label for="q13a"><b>A.</b> It refers to the superclass of the current object.</label><br>
+            <input type="radio" id="q13b" name="question13" value="B">
+            <label for="q13b"><b>B.</b> It is used to invoke the subclass constructor.</label><br>
+            <input type="radio" id="q13c" name="question13" value="C">
+            <label for="q13c"><b>C.</b> It is used to create an interface.</label><br>
+            <input type="radio" id="q13d" name="question13" value="D">
+            <label for="q13d"><b>D.</b> It is used to define static methods.</label><br><br>
+
+            <p><b>Question 14:</b> What is the purpose of encapsulation in Java?</p>
+            <input type="radio" id="q14a" name="question14" value="A">
+            <label for="q14a"><b>A.</b> To ensure all variables are global.</label><br>
+            <input type="radio" id="q14b" name="question14" value="B">
+            <label for="q14b"><b>B.</b> To protect data by restricting direct access to it.</label><br>
+            <input type="radio" id="q14c" name="question14" value="C">
+            <label for="q14c"><b>C.</b> To allow multiple inheritance.</label><br>
+            <input type="radio" id="q14d" name="question14" value="D">
+            <label for="q14d"><b>D.</b> To ensure methods are always public.</label><br><br>
+
+            <p><b>Question 15:</b> Which of the following statements about Java interfaces is true?</p>
+            <input type="radio" id="q15a" name="question15" value="A">
+            <label for="q15a"><b>A.</b> Interfaces can have concrete methods.</label><br>
+            <input type="radio" id="q15b" name="question15" value="B">
+            <label for="q15b"><b>B.</b> Interfaces can extend multiple interfaces.</label><br>
+            <input type="radio" id="q15c" name="question15" value="C">
+            <label for="q15c"><b>C.</b> Interfaces cannot have static methods.</label><br>
+            <input type="radio" id="q15d" name="question15" value="D">
+            <label for="q15d"><b>D.</b> Interfaces can implement classes.</label><br><br>
+
+            
+            <button type="button"  onclick="calculateScore()"  class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
